@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { authService } from "../../services/AuthService";
 import { checkAuthResponse } from "../../services/AuthService/checkAuth";
 import { localStorageKeys } from "../../config/localStorageKeys";
+import { LaunchScreen } from "../../../view/components/LaunchScreen";
 
 export interface AuthContextProps {
   signedIn: boolean;
@@ -20,7 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return !!storedAccessToken;
   });
 
-  const { isError, isSuccess, data } = useQuery({
+  const { isError, isSuccess, data, isFetching } = useQuery({
     queryKey: ['auth', 'check'],
     queryFn: () => authService.checkAuth(),
     staleTime: 3600,
@@ -50,7 +51,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signin,
       signout,
     }}>
-      {children}
+      <LaunchScreen isLoading={isFetching} />
+      {!isFetching && children}
     </AuthContext.Provider>
   );
 }

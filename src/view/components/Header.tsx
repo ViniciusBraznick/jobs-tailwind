@@ -1,4 +1,4 @@
-import { BellIcon, ExitIcon } from "@radix-ui/react-icons";
+import { BellIcon, ExitIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import * as Avatar from '@radix-ui/react-avatar';
 
 import { Popover } from "./Popover";
@@ -11,7 +11,9 @@ export function Header() {
 
   return(
     <header className="flex justify-between items-center px-4 py-4 shadow-sm bg-white">
-      <Search />
+      <div className="flex items-center gap-4">
+        <Search />
+      </div>
 
       <div className="flex items-center gap-4">
         <button className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center">
@@ -42,6 +44,10 @@ export function Header() {
             </button>
           </Popover.Content>
         </Popover.Root>
+
+        <button className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center md:hidden">
+          <HamburgerMenuIcon className="w-6 h-6 text-gray-400" />
+        </button>
       </div>
     </header>
   )

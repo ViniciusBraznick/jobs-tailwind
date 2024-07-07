@@ -1,7 +1,9 @@
+import { Spinner } from "../../components/Spinner";
+
 export function Dashboard() {
   return(
     <div>
-      Content
+      <Spinner />
     </div>
   );
 }

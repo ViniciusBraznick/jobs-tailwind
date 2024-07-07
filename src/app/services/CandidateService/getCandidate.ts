@@ -11,7 +11,7 @@ interface candidateResponse {
   country: string;
   street: string;
   number: number;
-  postCode: string;
+  postalCode: string;
 }
 
 export async function getCandidate() {
