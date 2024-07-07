@@ -11,7 +11,7 @@ export function Search() {
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-white/20 backdrop-blur-sm	 data-[state=open]:animate-overlayShow fixed inset-0" />
+        <Dialog.Overlay className="bg-black/45 backdrop-blur-sm	 data-[state=open]:animate-overlayShow fixed inset-0" />
         <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[20%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white shadow-md focus:outline-none">
           <form>
             <div className="flex items-center w-full">

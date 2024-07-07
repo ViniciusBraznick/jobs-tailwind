@@ -6,6 +6,7 @@ import { Register } from '../view/pages/Register';
 import { Dashboard } from '../view/pages/Dashboard';
 import { DashboardLayout } from '../view/layouts/DashboardLayout';
 import { AuthGuard } from './AuthGuard';
+import { EditAccountData } from '../view/pages/EditAccountData';
 
 
 export function Router() {
@@ -29,7 +30,7 @@ export function Router() {
             <Route path='/account/curriculum' element={<Dashboard />} />
             <Route path='/account/security' element={<Dashboard />} />
             <Route path='/account/privacy' element={<Dashboard />} />
-            <Route path='/account/data' element={<Dashboard />} />
+            <Route path='/account/data' element={<EditAccountData />} />
             <Route path='/' element={<Dashboard />} />
           </Route>
         </Route>

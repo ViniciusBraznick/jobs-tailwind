@@ -10,7 +10,7 @@ export function Header() {
   const { signout, user } = useAuth();
 
   return(
-    <header className="flex justify-between items-center px-8 py-4 shadow-sm bg-white">
+    <header className="flex justify-between items-center px-4 py-4 shadow-sm bg-white">
       <Search />
 
       <div className="flex items-center gap-4">

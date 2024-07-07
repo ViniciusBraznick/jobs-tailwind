@@ -1,18 +1,21 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
+import { SidebarProvider } from "../../app/contexts/SibebarContext";
 
 export function DashboardLayout() {
   return(
-    <div className="h-full flex">
-      <Sidebar />
+    <SidebarProvider>
+      <div className="h-full flex">
+        <Sidebar />
 
-      <main className="flex flex-col w-full gap-8">
-        <Header />
-        <div className="h-full w-full px-8">
-          <Outlet />
-        </div>
-      </main>
-    </div>
+        <main className="flex flex-col w-full gap-8">
+          <Header />
+          <div className="h-full w-full px-8">
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 }

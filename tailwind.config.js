@@ -9,5 +9,8 @@ export default {
       'sans': ['Outfit', 'sans-serif'],
     }
   },
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line no-undef
+    require('@tailwindcss/container-queries'),
+  ],
 }
