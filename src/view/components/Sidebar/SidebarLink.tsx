@@ -34,7 +34,7 @@ export function SidebarLink({ name, link: urlPath, hasChildren, icon: IconCompon
           </div>
 
           {hasChildren && (
-            <div className='flex items-center gap-1 @[40px]:hidden'>
+            <div className='items-center gap-1 @[100px]:flex hidden'>
               <ChevronDownIcon className={cn(
                 'transition-all',
                 isOpen && 'rotate-180 transition-all'
