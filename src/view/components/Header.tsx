@@ -1,13 +1,15 @@
-import { BellIcon, ExitIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { BellIcon, Cross1Icon, ExitIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import * as Avatar from '@radix-ui/react-avatar';
 
 import { Popover } from "./Popover";
 import { useAuth } from "../../app/hooks/useAuth";
 import { Search } from "../pages/Dashboard/components/Search";
 import { Link } from "react-router-dom";
+import { useSideBar } from "../../app/hooks/useSidebarContext";
 
 export function Header() {
   const { signout, user } = useAuth();
+  const { handleToggleSidebar, sidebarIsOpen } = useSideBar();
 
   return(
     <header className="flex justify-between items-center px-4 py-4 shadow-sm bg-white">
@@ -45,8 +47,8 @@ export function Header() {
           </Popover.Content>
         </Popover.Root>
 
-        <button className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center md:hidden">
-          <HamburgerMenuIcon className="w-6 h-6 text-gray-400" />
+        <button onClick={handleToggleSidebar} className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center md:hidden">
+          {sidebarIsOpen ? <Cross1Icon className="w-6 h-6 text-gray-400" /> : <HamburgerMenuIcon className="w-6 h-6 text-gray-400" />}
         </button>
       </div>
     </header>

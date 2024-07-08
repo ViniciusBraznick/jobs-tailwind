@@ -4,6 +4,7 @@ import { useAuth } from '../../../app/hooks/useAuth';
 import { SidebarLink } from './SidebarLink';
 import { cn } from '../../../app/utils/cn';
 import { useSideBar } from '../../../app/hooks/useSidebarContext';
+import { DoubleArrowRightIcon } from '@radix-ui/react-icons';
 
 export function Sidebar() {
   const { user } = useAuth();
@@ -11,12 +12,22 @@ export function Sidebar() {
   const { sidebarIsOpen, handleToggleSidebar } = useSideBar();
 
   return (
-    <div className={cn(
-      'w-full bg-white transition-all',
+    <aside className={cn(
+      'w-full bg-white transition-all z-10',
       sidebarIsOpen ? 'max-w-72' : 'max-w-20',
+      'absolute top-0 -translate-x-[100%] h-full',
+      'md:relative  md:translate-x-0',
+      sidebarIsOpen && 'translate-x-0',
     )}>
-      <div onClick={handleToggleSidebar} className='h-20 flex items-center p-4'>
+      <div className='h-20 flex items-center p-4 relative'>
         <img src={logo} />
+
+        <button
+          onClick={handleToggleSidebar} 
+          className="max-sm:hidden w-6 h-12 rounded-md rounded-tl-none rounded-bl-none flex items-center justify-center bg-gray-200 cursor-pointer absolute -right-6 top-[100%]"
+        >
+          <DoubleArrowRightIcon className={cn(sidebarIsOpen && 'rotate-180 transition-all' )} />
+        </button>
       </div>
 
       <nav className='px-4 bg-white h-full'>
@@ -26,6 +37,6 @@ export function Sidebar() {
           ))}
         </div>
       </nav>
-    </div>
+    </aside>
   );
 }

@@ -2,7 +2,7 @@ import { Spinner } from "../../components/Spinner";
 
 export function Dashboard() {
   return(
-    <div>
+    <div className="w-full h-full flex items-center justify-center">
       <Spinner />
     </div>
   );
