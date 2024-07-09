@@ -73,7 +73,7 @@ export function EditAccountData() {
                 </div>
               </div>
 
-              <Button type="submit" isLoading={isPending} className="ml-auto mt-6">Salvar alterações</Button>
+              <Button type="submit" isLoading={isPending} className="ml-auto mt-6 max-sm:w-full">Salvar alterações</Button>
           </form>
         </div>
       </div>
