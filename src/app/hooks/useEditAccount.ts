@@ -5,6 +5,16 @@ import toast from "react-hot-toast";
 import { z, ZodObject, ZodRawShape } from 'zod';
 import { useMutation } from "@tanstack/react-query";
 
+interface AxiosError extends Error {
+  response?: {
+    data: {
+      messages: {
+        error: string;
+      };
+    };
+  };
+}
+
 export function useEditAccount<T extends ZodRawShape>(
   schema: ZodObject<T>,  
   defaults: any,
@@ -19,10 +29,12 @@ export function useEditAccount<T extends ZodRawShape>(
         id: 'account_update'
       });
     },
-    onError: (error) => {
-      toast.error(`Ocorreu um erro ao tentar atualizar os dados da conta: ${error.response.data.messages.error || 'Erro desconhecido'}`, {
-        id: 'account_update_error'
-      })
+    onError: (error: AxiosError) => {
+      if (error.response) {
+        toast.error(`${error.response.data.messages.error || 'Ocorreu um erro ao tentar atualizar os dados da conta'}`, {
+          id: 'account_update_error'
+        })
+      }
     }
   });
 
@@ -38,8 +50,7 @@ export function useEditAccount<T extends ZodRawShape>(
     defaultValues: defaults,
   });
 
-
-  const handleSubmit = useFormHandleSubmit(async (data) => {
+  const handleSubmit = useFormHandleSubmit(async (data: any) => {
     try {
       await mutate(data);
     } catch (error) {
