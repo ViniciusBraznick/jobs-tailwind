@@ -1,11 +1,8 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { candidateService } from "../../../app/services/CandidateService";
-import toast from "react-hot-toast";
 import { CandidateAccountData } from "../../../app/entities/CadidateAccountData";
 import { useEffect } from "react";
+import { useEditAccount } from "../../../app/hooks/useEditAccount";
 
 const schema = z.object({
   name: z.string().trim().min(1, 'Nome é obrigatório'),
@@ -23,28 +20,22 @@ const schema = z.object({
   postalCode: z.string().trim().min(1, 'CEP é obrigatório'),
 });
 
-type FormData = z.infer<typeof schema>;
-
 export function useEditAccountDataController() {
-  const { 
-    register, 
-    handleSubmit: 
-    useFormHandleSubmit,
-    formState: { errors },
-    setValue,
-    watch,
-   } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      name: '',
-      position: '',
-      telephone: '',
-      city: '',
-      stateProvince: '',
-      postalCode: '',
-      street: '',
-    }
-  });
+  const mutateFunc = async (data:CandidateAccountData) => {
+    await candidateService.updateCandidateData(data);
+  }
+
+  const defaults = {
+    name: '',
+    position: '',
+    telephone: '',
+    city: '',
+    stateProvince: '',
+    postalCode: '',
+    street: '',
+  }
+
+  const { errors, handleSubmit,register,setValue,watch,isPending } = useEditAccount(schema, defaults, mutateFunc);
 
   const telephone = watch('telephone');
   const postalCode = watch('postalCode');
@@ -59,41 +50,21 @@ export function useEditAccountDataController() {
   }, [postalCode, setValue]);
 
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: async (data:CandidateAccountData) => {
-      await candidateService.updateCandidateData(data);
-    }
-  });
-
   useEffect(() => {
     (async () => {
       const { name, position, telephone, street, number, postalCode, city, stateProvince, country } = await candidateService.getCandidate();
 
-      setValue('name', name)
-      setValue('position', position)
-      setValue('telephone', telephone)
-      setValue('city', city)
-      setValue('stateProvince', stateProvince)
-      setValue('country', country)
-      setValue('street', street)
-      setValue('number', number)
-      setValue('postalCode', postalCode)
+      setValue('name', name || "")
+      setValue('position', position || "")
+      setValue('telephone', telephone || "")
+      setValue('city', city || "")
+      setValue('stateProvince', stateProvince || "")
+      setValue('country', country || "")
+      setValue('street', street || "")
+      setValue('number', number || 0)
+      setValue('postalCode', postalCode || "")
     })();
   }, [setValue])
-
-  const handleSubmit = useFormHandleSubmit(async (data) => {
-    try {
-      await mutate(data);
-
-      toast.success("Conta atualizada", {
-        id: 'account_update'
-      });
-    } catch {
-      toast.error("Ocorreu um erro ao tentar atualizar os dados da conta", {
-        id: 'account_update_error'
-      })
-    }
-  });
 
   return {
     errors,
