@@ -8,7 +8,7 @@ import { DoubleArrowRightIcon } from '@radix-ui/react-icons';
 
 export function Sidebar() {
   const { user } = useAuth();
-  const links = sidebarItens[user?.isCompany ? 'candidate' : 'candidate'];
+  const links = sidebarItens[user?.isCompany ? 'company' : 'candidate'];
   const { sidebarIsOpen, handleToggleSidebar } = useSideBar();
 
   return (
