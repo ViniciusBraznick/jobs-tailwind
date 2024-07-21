@@ -7,6 +7,8 @@ import { Dashboard } from '../view/pages/Dashboard';
 import { DashboardLayout } from '../view/layouts/DashboardLayout';
 import { AuthGuard } from './AuthGuard';
 import { EditAccountData } from '../view/pages/EditAccountData';
+// Company
+import { CompanyEditAccountData } from '../view/pages/company/CompanyEditAccountData';
 
 
 export function Router() {
@@ -21,17 +23,31 @@ export function Router() {
           </Route>
         </Route>
 
+        <Route element={<AuthGuard isPrivate userAllowed='candidate' />}>
+          <Route element={<DashboardLayout />}>
+            <Route path='/candidate/applications' element={<Dashboard />} />
+            <Route path='/candidate/preferences' element={<Dashboard />} />
+            <Route path='/candidate/account/curriculum' element={<Dashboard />} />
+            <Route path='/candidate/account/security' element={<Dashboard />} />
+            <Route path='/candidate/account/privacy' element={<Dashboard />} />
+            <Route path='/candidate/account/data' element={<EditAccountData />} />
+          </Route>
+        </Route>
 
         <Route element={<AuthGuard isPrivate />}>
           <Route element={<DashboardLayout />}>
             <Route path='/chat' element={<Dashboard />} />
-            <Route path='/applications' element={<Dashboard />} />
-            <Route path='/preferences' element={<Dashboard />} />
-            <Route path='/account/curriculum' element={<Dashboard />} />
-            <Route path='/account/security' element={<Dashboard />} />
-            <Route path='/account/privacy' element={<Dashboard />} />
-            <Route path='/account/data' element={<EditAccountData />} />
             <Route path='/' element={<Dashboard />} />
+          </Route>
+        </Route>
+
+        <Route element={<AuthGuard isPrivate userAllowed='company' />}>
+          <Route element={<DashboardLayout />}>
+            <Route path='/company/preferences' element={<Dashboard />} />
+            <Route path='/company/account/curriculum' element={<Dashboard />} />
+            <Route path='/company/account/security' element={<Dashboard />} />
+            <Route path='/company/account/privacy' element={<Dashboard />} />
+            <Route path='/company/account/data' element={<CompanyEditAccountData />} />
           </Route>
         </Route>
       </Routes>

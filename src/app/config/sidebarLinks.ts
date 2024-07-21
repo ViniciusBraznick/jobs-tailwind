@@ -14,7 +14,7 @@ export const sidebarItens = {
     {
       icon: DashboardIcon,
       name: 'Dashboard',
-      link: '/company/',
+      link: '/',
       children: [],
     },
     {
@@ -30,11 +30,10 @@ export const sidebarItens = {
     ...commons,
   ],
   candidate: [
-    ...commons,
     {
       icon: DashboardIcon,
       name: 'Dashboard',
-      link: '/candidate/',
+      link: '/',
       children: [],
     },
     {
@@ -60,5 +59,6 @@ export const sidebarItens = {
       link: '/preferences',
       children: [],
     },
+    ...commons,
   ]
 }
